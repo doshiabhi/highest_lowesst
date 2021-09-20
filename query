@@ -1,0 +1,7 @@
+select emp_ID, emp_NAME, DEPT_NAME, SALARY
+from (
+select *,
+max(salary) over (partition by DEPT_NAME) as max_salary,
+min(salary) over (partition by DEPT_NAME) as min_salary
+from employee ) x
+where SALARY = max_salary OR SALARY = min_salary
